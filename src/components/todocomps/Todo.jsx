@@ -1,16 +1,26 @@
 import React from "react";
-
+import "../../App.css";
 function Todo({ text, id, todos, setTodos, todo }) {
   const deleteHandler = () => {
     setTodos(todos.filter((el) => el.id !== todo.id));
   };
 
   const completeHandler = () => {
-    //burda kaldım
+    setTodos(
+      todos.map((item) => {
+        if (item.id === todo.id) {
+          return {
+            ...item,
+            completed: !item.completed,
+          };
+        }
+        return item;
+      })
+    );
   };
   return (
-    <div className="todo">
-      <button className="complete-btn">
+    <div className={`todo ${todo.completed ? "completed" : ""}`}>
+      <button className="complete-btn" onClick={completeHandler}>
         <i className="fas fa-check-circle"></i>
       </button>
 
